@@ -1,0 +1,59 @@
+{
+    "name": "@qson/js",
+    "version": "0.1.0",
+    "description": "Query String Object Notation - A JSON-like notation designed for URL query strings",
+    "author": "Jarno Parviainen",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Daaler/qson.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Daaler/qson/issues"
+    },
+    "homepage": "https://github.com/Daaler/qson",
+    "keywords": [
+        "qson",
+        "query",
+        "query-string",
+        "querystring",
+        "url-query",
+        "url-parameters",
+        "urlsearchparams",
+        "api",
+        "rest",
+        "rest-api",
+        "http",
+        "json"
+    ],
+    "type": "module",
+    "main": "esm/index.js",
+    "types": "types/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./esm/index.js",
+            "require": "./cjs/index.js",
+            "types": "./types/index.d.ts"
+        }
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "types"
+    ],
+    "scripts": {
+        "test": "pnpm run test:types && node --test --import ./test/setup.js \"**/*.test.js\"",
+        "test:types": "tsc --noEmit",
+        "test1": "node --test --import ./test/setup.js",
+        "lint": "pnpm exec eslint",
+        "build": "node ./scripts/build.js",
+        "clean": "node ./scripts/clean.js",
+        "publish": "pnpm run build && pnpm publish --access public"
+    },
+    "packageManager": "pnpm@9.12.3",
+    "devDependencies": {
+        "@types/node": "^25.9.2",
+        "tsx": "^4.22.4",
+        "typescript": "^6.0.3"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "target": "ESNext",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "esModuleInterop": true,
+        "types": ["node"],
+
+        "rewriteRelativeImportExtensions": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+    },
+    "include": ["./src/**/*"],
+}

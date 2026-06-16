@@ -1,0 +1,21 @@
+{
+    "description": "Simple primitives",
+    "type": "valid-pair",
+    "cases": [
+        {
+            "description": "true",
+            "data": true,
+            "qson": "true"
+        },
+        {
+            "description": "false",
+            "data": false,
+            "qson": "false"
+        },
+        {
+            "description": "null",
+            "data": null,
+            "qson": "null"
+        }
+    ]
+}

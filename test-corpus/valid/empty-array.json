@@ -1,0 +1,6 @@
+{
+    "description": "Empty array",
+    "type": "valid-pair",
+    "data": [],
+    "qson": "@()"
+}

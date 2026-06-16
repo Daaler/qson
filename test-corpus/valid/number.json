@@ -1,0 +1,31 @@
+{
+    "description": "Numbers",
+    "type": "valid-pair",
+    "cases": [
+        {
+            "description": "zero - 0",
+            "data": 0,
+            "qson": "0"
+        },
+        {
+            "description": "negative - -1",
+            "data": -1,
+            "qson": "-1"
+        },
+        {
+            "description": "decimal - 0.2",
+            "data": 0.2,
+            "qson": "0.2"
+        },
+        {
+            "description": "big - 21_000_000_000_000_000_000_000",
+            "data": 21000000000000000000000,
+            "qson": "2.1e22"
+        },
+        {
+            "description": "small - 0.00_000_000_000_000_000_000_21",
+            "data": 0.0000000000000000000021,
+            "qson": "2.1e-21"
+        }
+    ]
+}

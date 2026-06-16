@@ -1,3 +1,8 @@
+node_modules
 dist
 build
+cjs
+esm
+types
 zz-*
+/pnpm-lock.yaml

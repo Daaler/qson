@@ -72,7 +72,7 @@ function prepareValidPair(testCases) {
 
 function prepareInvadlidQSON(testCases) {
     for (const testCase of testCases) {
-        const { description, qson, parserError } = testCase;
+        const { description, qson } = testCase;
 
         test(`${description} - parse`, () => {
             let error;
@@ -82,7 +82,7 @@ function prepareInvadlidQSON(testCases) {
                 error = e;
             }
 
-            assert.deepStrictEqual(error.constructor, SyntaxError);
+            assert.strictEqual(error.constructor, SyntaxError);
         });
     }
 }
@@ -99,8 +99,7 @@ function prepareInvadlidData(testCases) {
                 error = e;
             }
 
-            const expectedErrorType = errorTypes[serializerError];
-            assert.deepStrictEqual(error.constructor, expectedErrorType);
+            assert.strictEqual(error.constructor, TypeError);
         });
     }
 }

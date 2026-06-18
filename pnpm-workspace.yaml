@@ -1,0 +1,4 @@
+packages:
+  - "packages/qson-js"
+allowBuilds:
+  esbuild: true

@@ -51,7 +51,6 @@
         "clean": "node ./scripts/clean.js",
         "publish": "pnpm run build && pnpm publish --access public"
     },
-    "packageManager": "pnpm@9.12.3",
     "devDependencies": {
         "@types/node": "^25.9.2",
         "tsx": "^4.22.4",

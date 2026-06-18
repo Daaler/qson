@@ -132,10 +132,13 @@ function parseFalse(state:ParserState):false {
 
 function checkPrimitiveSyntax(state:ParserState, primitiveName:string):void {
     const start = state.offset;
-    state.advance(primitiveName.length);
-    const end = state.offset;
+    const end = start + primitiveName.length;
     const check = state.slice(start, end);
-    if (check !== primitiveName) throw new Error("Invalid value in QSON");
+    const after = state.slice(end, end+1);
+    if (check !== primitiveName || !/^[,)]?$/.test(after)) {
+        throw new QSONSyntaxException(state, "Expected '(', '@', '$', 'null', 'true', 'false', or number (0-9 or '-')");
+    }
+    state.advance(primitiveName.length);
     state.mark();
 }
 

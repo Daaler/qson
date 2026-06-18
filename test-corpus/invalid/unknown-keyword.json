@@ -1,0 +1,30 @@
+{
+    "description": "Unknown keyword",
+    "type": "invalid-qson",
+    "cases": [
+        {
+            "description": "hello",
+            "qson": "hello"
+        },
+        {
+            "description": "a",
+            "qson": "a"
+        },
+        {
+            "description": "ö",
+            "qson": "ö"
+        },
+        {
+            "description": "truu",
+            "qson": "truu"
+        },
+        {
+            "description": "nul",
+            "qson": "nul"
+        },
+        {
+            "description": "falsee",
+            "qson": "falsee"
+        }
+    ]
+}

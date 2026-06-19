@@ -1,0 +1,38 @@
+{
+    "description": "Invalid object",
+    "type": "invalid-qson",
+    "cases": [
+        {
+            "description": "Totally incomplete",
+            "qson": "("
+        },
+        {
+            "description": "Incomplete: Missing key delimiter/separator ':'",
+            "qson": "(abc"
+        },
+        {
+            "description": "Incomplete: Missing value",
+            "qson": "(abc:"
+        },
+        {
+            "description": "Incomplete: Missing value but has member separator",
+            "qson": "(abc:,"
+        },
+        {
+            "description": "Complete with one key but missing value",
+            "qson": "(abc:)"
+        },
+        {
+            "description": "Complete with two keys but missing value on first",
+            "qson": "(abc:,def:null)"
+        },
+        {
+            "description": "Missing member delimiter ','",
+            "qson": "(abc:$$def:null)"
+        },
+        {
+            "description": "Extra member delimiter ',' at end",
+            "qson": "(abc:$$,def:null,)"
+        }
+    ]
+}

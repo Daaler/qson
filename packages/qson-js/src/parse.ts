@@ -107,7 +107,8 @@ function parseString(state:ParserState):string {
 
 function parseKey(state:ParserState):string {
     const start = state.offset;
-    while (state.look !== ":") state.advance();
+    while (state.look && state.look !== ":") state.advance();
+    if (!state.look) throw new QSONSyntaxException(state, "Unexpected end of QSON input while scanning for object key");
     const end = state.offset;
     const encoded = state.slice(start, end);
     const decoded = decodeURIComponent(encoded);

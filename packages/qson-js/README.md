@@ -53,6 +53,7 @@ const { stringifyQSON,parseQSON,createQueryString,parseQueryString } = require("
 - options\<SerializerOptions>
 	- replacer\<function> a json api style replacer function
 	- canonical\<boolean> (default: true) sort object keys
+	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
 * returns\<string>
 
 Takes in any valid QSON (JSON) compatible data. Returns a QSON string representing the data.
@@ -61,6 +62,7 @@ Takes in any valid QSON (JSON) compatible data. Returns a QSON string representi
 - text\<string> QSON string
 - options\<ParserOptions>
 	- reviver\<function> a json api style reviver function
+	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
 * returns\<object|array|string|boolean|null>
 
 Takes in any valid QSON string. Returns corresponding JS data.
@@ -72,6 +74,7 @@ Takes in any valid QSON string. Returns corresponding JS data.
 - options\<SerializerOptions>
 	- replacer\<function> a json api style replacer function
 	- canonical\<boolean> (default: true) sort object keys
+	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
 * returns\<string>
 
 Takes in an object where keys are query string keys and values are any QSON (JSON) compatible data. Returns query string (without leading '?') where values are QSON encoded. Replacer function is run on each entry in data (query object) but not for the query object itself.
@@ -80,6 +83,7 @@ Takes in an object where keys are query string keys and values are any QSON (JSO
 - text\<string> query string where values are QSON encoded
 - options\<ParserOptions>
 	- reviver\<function> a json api style reviver function
+	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
 * returns\<object>
 
 Takes in a query string (without leading '?') where values are QSON encoded. Returns an object where keys are query string keys and values are JS data. Reviver function is run on each entry in the resulting query object but not for the query object itself.

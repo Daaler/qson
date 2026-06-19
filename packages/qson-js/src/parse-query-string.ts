@@ -11,9 +11,9 @@ import { Obj } from "./types.ts";
  * @throws {SyntaxError} If text is not valid Query String or values are not valid QSON.
  */
 export default function parseQueryString(text:string, options:ParserOptions={}) {
-    const { reviver } = options;
+    const { reviver, maxDepth } = options;
     try {
-        return _parseQueryString(text, { transform: reviver });
+        return _parseQueryString(text, { transform: reviver, maxDepth });
     } catch (exception) {
         handleQSONException(exception, parseQueryString);
     }

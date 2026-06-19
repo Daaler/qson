@@ -1,25 +1,31 @@
+import QSONException from "./qson-exception.ts";
 import { Key, Transform } from "./types.ts";
 
 export default class State {
     private readonly _path:Key[];
     private readonly _transform:Transform;
     private readonly _hasTransform:boolean;
+    private readonly _maxDepth:number;
 
-    get hasTransform() { return this._hasTransform; }
+    get hasTransform() {
+        return this._hasTransform;
+    }
 
     get path() {
         return this._path.join(".");
     }
 
     constructor(options:Options) {
-        const { transform } = options;
+        const { transform, maxDepth=10 } = options;
         this._transform = transform || noTransform;
         this._hasTransform = !!transform;
+        this._maxDepth = maxDepth;
         this._path = [];
     }
 
     enter(path:Key) {
         this._path.push(path);
+        if (this._path.length > this._maxDepth) throw new QSONException(Error, this, `Max nesting depth (${this._maxDepth}) exceeded`);
     }
 
     leave() {
@@ -36,5 +42,6 @@ function noTransform(key:Key, item:any):any {
 }
 
 export interface Options {
-	transform?:Transform
+	transform?:Transform|null;
+    maxDepth?:number;
 }

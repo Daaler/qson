@@ -9,9 +9,9 @@ import { Transform } from "./types.ts";
  * @throws {SyntaxError} If text is not valid JSON.
  */
 export default function parseQSON(text:string, options:ParserOptions={}):any {
-    const { reviver } = options;
+    const { reviver, maxDepth } = options;
     try {
-        return parse(text, { transform: reviver });
+        return parse(text, { transform: reviver, maxDepth });
     } catch (exception) {
         handleQSONException(exception, parseQSON);
     }
@@ -25,4 +25,8 @@ export interface ParserOptions {
 	 * A function that transforms the results.
 	 */
 	reviver?:Transform;
+	/**
+	 * Maximum nesting depth.
+	 */
+	maxDepth?:number;
 }

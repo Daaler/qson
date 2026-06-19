@@ -10,9 +10,9 @@ import { Transform } from "./types.ts";
  * @throws {TypeError} If a circular reference or a unserializable value is found.
  */
 export default function stringifyQSON(value:any, options:SerializerOptions={}):string|undefined {
-    const { canonical=true, replacer } = options;
+    const { canonical=true, replacer, maxDepth } = options;
     try {
-        return serialize(value, { canonical, transform: replacer });
+        return serialize(value, { canonical, transform: replacer, maxDepth });
     } catch (exception) {
         handleQSONException(exception, stringifyQSON);
     }
@@ -29,5 +29,9 @@ export interface SerializerOptions {
 	/**
 	 * A function that transforms the results.
 	 */
-	replacer?:Transform;
+	replacer?:Transform|null;
+	/**
+	 * Maximum nesting depth.
+	 */
+	maxDepth?:number;
 }

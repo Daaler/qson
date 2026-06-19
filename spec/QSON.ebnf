@@ -14,7 +14,7 @@ array           = "@(" [ value { "," value } ] ")" ;
 
 string          = "$" { string-char } "$" ;
 
-string-char     = text-char | ":" ;
+string-char     = text-char | ":" | "," ;
 
 number          = [ "-" ] int [ frac ] [ exp ] ;
 

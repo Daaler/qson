@@ -33,6 +33,10 @@
         {
             "description": "Extra member delimiter ',' at end",
             "qson": "(abc:$$,def:null,)"
+        },
+        {
+            "description": "Extra member delimiter ',' in the middle",
+            "qson": "(abc:$$,,def:null)"
         }
     ]
 }

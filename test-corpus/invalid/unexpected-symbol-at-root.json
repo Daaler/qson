@@ -1,0 +1,38 @@
+{
+    "description": "Unexpected symbol at root",
+    "type": "invalid-qson",
+    "cases": [
+        {
+            "description": "comma",
+            "qson": ","
+        },
+        {
+            "description": "period",
+            "qson": "."
+        },
+        {
+            "description": "close parenthesis",
+            "qson": ")"
+        },
+        {
+            "description": "colon",
+            "qson": ":"
+        },
+        {
+            "description": "space",
+            "qson": " "
+        },
+        {
+            "description": "ampersand",
+            "qson": "&"
+        },
+        {
+            "description": "equals",
+            "qson": "="
+        },
+        {
+            "description": "percent",
+            "qson": "%"
+        }
+    ]
+}

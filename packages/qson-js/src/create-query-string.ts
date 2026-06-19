@@ -18,9 +18,9 @@ import { Obj } from "./types.ts";
  * @throws {TypeError} If a circular reference or a unserializable value is found.
  */
 export default function createQueryString(query:Obj, options:SerializerOptions={}) {
-    const { canonical=true, replacer } = options;
+    const { canonical=true, replacer, maxDepth } = options;
     try {
-        return _createQueryString(query, { canonical, transform: replacer });
+        return _createQueryString(query, { canonical, transform: replacer, maxDepth });
     } catch (exception) {
         handleQSONException(exception, createQueryString);
     }

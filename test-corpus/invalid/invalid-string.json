@@ -1,0 +1,18 @@
+{
+    "description": "Invalid string",
+    "type": "invalid-qson",
+    "cases": [
+        {
+            "description": "Totally incomplete",
+            "qson": "$"
+        },
+        {
+            "description": "Missing end delimiter",
+            "qson": "$abc"
+        },
+        {
+            "description": "Contains unescaped dollar sign",
+            "qson": "$a$b$"
+        }
+    ]
+}

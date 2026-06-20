@@ -1,0 +1,30 @@
+{
+    "description": "Invalid array",
+    "type": "invalid-qson",
+    "cases": [
+        {
+            "description": "Totally incomplete",
+            "qson": "@("
+        },
+        {
+            "description": "Incomplete: Missing item separator ','",
+            "qson": "@(null"
+        },
+        {
+            "description": "Incomplete: Missing value",
+            "qson": "@($abc$,"
+        },
+        {
+            "description": "Missing item delimiter ','",
+            "qson": "@($abc$null)"
+        },
+        {
+            "description": "Extra item delimiter ',' at end",
+            "qson": "@($abc$,)"
+        },
+        {
+            "description": "Extra item delimiter ',' in the middle",
+            "qson": "@($abc$,,null)"
+        }
+    ]
+}

@@ -1,21 +1,29 @@
-import { stringEncodingTable, keyEncodingTable, qsKeyEncodingTable } from "./encoding-tables.ts";
+import {
+    stringNonHotRegex,
+    stringEncodingTable,
+    keyNonHotRegex,
+    keyEncodingTable,
+    qsKeyNonHotRegex,
+    qsKeyEncodingTable,
+
+} from "./encoding-tables.ts";
 
 export function encodeString(string:string) {
-    if (!/[^a-zA-Z0-9()\-_!*,.~@;:]/.test(string)) return string;
+    if (!stringNonHotRegex.test(string)) return string;
     const state = new StringEncoderState(string);
     const qsonString = encodeText(state);
     return qsonString;
 }
 
 export function encodeKey(key:string) {
-    if (!/[^a-zA-Z0-9()\-_!*,.~@;$]/.test(key)) return key;
+    if (!keyNonHotRegex.test(key)) return key;
     const state = new KeyEncoderState(key);
     const qsonKey = encodeText(state);
     return qsonKey;
 }
 
 export function encodeQsKey(key:string) {
-    if (!/[^a-zA-Z0-9()\-_!*,.~@;:$]/.test(key)) return key;
+    if (!qsKeyNonHotRegex.test(key)) return key;
     const state = new QsKeyEncoderState(key);
     const qsonKey = encodeText(state);
     return qsonKey;

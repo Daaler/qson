@@ -2,7 +2,7 @@ const encodingTable = [
     "%00", "%01", "%02", "%03", "%04", "%05", "%06", "%07", "%08", "%09", "%0A", "%0B", "%0C", "%0D", "%0E", "%0F",
     "%10", "%11", "%12", "%13", "%14", "%15", "%16", "%17", "%18", "%19", "%1A", "%1B", "%1C", "%1D", "%1E", "%1F",
 
-    "%20", "!", "%22", "%23", "%24", "%25", "%26", "%27", "(", ")", "*", "%2B", "%2C", "-", ".", "%2F",
+    "%20", "!", "%22", "%23", "%24", "%25", "%26", "%27", "%28", "%29", "*", "%2B", "%2C", "-", ".", "%2F",
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%3A", ";", "%3C", "%3D", "%3E", "%3F",
 
     "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
@@ -21,14 +21,21 @@ const encodingTable = [
     "%F0", "%F1", "%F2", "%F3", "%F4", "%F5", "%F6", "%F7", "%F8", "%F9", "%FA", "%FB", "%FC", "%FD", "%FE", "%FF",
 ];
 
+export const stringNonHotRegex = /[^a-zA-Z0-9\-_!()*,.~@;:]/;
 export const stringEncodingTable = [...encodingTable];
+stringEncodingTable[0x28] = "(";
+stringEncodingTable[0x29] = ")";
 stringEncodingTable[0x2C] = ",";
 stringEncodingTable[0x3A] = ":";
 
+export const keyNonHotRegex = /[^a-zA-Z0-9\-_!*.~@;$]/;
 export const keyEncodingTable = [...encodingTable];
 keyEncodingTable[0x24] = "$";
 
+export const qsKeyNonHotRegex = /[^a-zA-Z0-9\-_!()*,.~@;:$]/;
 export const qsKeyEncodingTable = [...encodingTable];
+qsKeyEncodingTable[0x28] = "(";
+qsKeyEncodingTable[0x29] = ")";
 qsKeyEncodingTable[0x24] = "$";
 qsKeyEncodingTable[0x2C] = ",";
 qsKeyEncodingTable[0x3A] = ":";

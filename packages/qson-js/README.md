@@ -3,7 +3,7 @@
 Example:
 
 ```js
-import { createQueryString,parseQueryString } from "qson";
+import { createQueryString,parseQueryString } from "@qson/js";
 
 const qs = createQueryString({ search:{ name:"qson",rating:5,public:true },slice:[ 1,10 ] });
 // -> "search=(name:$qson$,public:true,rating:5)&slice=@(1,10)"
@@ -33,17 +33,17 @@ Not 100% compatible with all other tools and systems. If a QSON or QSON-containi
 
 ESM:
 ```js
-import { stringifyQSON,parseQSON,createQueryString,parseQueryString } from "qson";
+import { stringifyQSON,parseQSON,createQueryString,parseQueryString } from "@qson/js";
 ```
 
 TypeScript:
 ```ts
-import type { SerializerOptions,ParserOptions } from "qson";
+import type { SerializerOptions,ParserOptions } from "@qson/js";
 ```
 
 CJS:
 ```js
-const { stringifyQSON,parseQSON,createQueryString,parseQueryString } = require("qson");
+const { stringifyQSON,parseQSON,createQueryString,parseQueryString } = require("@qson/js");
 ```
 
 ### Core:

@@ -1,3 +1,4 @@
+import { QSONSyntaxException } from "./qson-exception.ts";
 import State, { Options } from "./state.ts";
 
 export default class ParserState extends State {
@@ -6,9 +7,19 @@ export default class ParserState extends State {
     private _offset:number;
     private _current:string;
 
-    get baseMarker() { return this._baseMarker; }
-    get offset() { return this._offset; }
-    get look() { return this._current; }
+    get baseMarker() {
+        return this._baseMarker;
+    }
+    get offset() {
+        return this._offset;
+    }
+    get peek() {
+        return this._current;
+    }
+    get look() {
+        if (!this._current) throw new QSONSyntaxException(this, "Unexpected end of QSON input");
+        return this._current;
+    }
 
     constructor(qson:string, options:Options) {
         super(options);
@@ -23,12 +34,27 @@ export default class ParserState extends State {
     }
 
     advance(n:number=1) {
-        if (this._offset > this._qson.length) throw new Error("Unexpected end of QSON input");
         this._offset += n;
         this._current = this._qson[this._offset] || "";
+        if (this._offset > this._qson.length) throw new Error("Trying move past QSON text end");
     }
 
     mark() {
         this._baseMarker = this._offset;
+    }
+
+    move(n:number=1) {
+        this._offset += n;
+        this._current = this._qson[this._offset] || "";
+        if (this._offset > this._qson.length) throw new Error("Trying move past QSON text end");
+        this._baseMarker = this._offset;
+    }
+
+    match(regex:RegExp) {
+        regex.lastIndex = this._baseMarker;
+        const match = regex.exec(this._qson)?.[0] || "";
+        this._offset += match.length;
+        this._current = this._qson[this._offset] || "";
+        return match;
     }
 }

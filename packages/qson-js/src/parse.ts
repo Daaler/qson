@@ -35,26 +35,33 @@ function _parseItem(state:ParserState):any {
 }
 
 function parseObject(state:ParserState):Obj {
-    state.advance(); // pass "("
+    state.move(); // pass "("
     const object:Obj = {};
     if (state.look === ")") {
-        state.advance();
+        state.move();
         return object;
     }
     while (true) {
         const key = parseKey(state);
-        state.advance(); // pass ":"
         const item = parseItem(state, key);
         object[key] = item;
         const delimiter:string = state.look;
         if (delimiter === ")") break;
         if (delimiter !== ",") throw new QSONSyntaxException(state, "Expected ',' or ')' after property value in QSON");
-        state.advance(); // pass ","
+        state.move();
     }
     state.advance(); // pass ")"
     if (state.hasTransform) transformObject(state, object);
     state.mark();
     return object;
+}
+
+function parseKey(state:ParserState):string {
+    const encoded = state.match(/[a-zA-Z0-9\-_!*.~@;$%]*/y);
+    const decoded = decodeURIComponent(encoded);
+    if (state.peek !== ":") throw new QSONSyntaxException(state, `"Expectedr ':' to delimit QSON object key" ${state.peek}`);
+    state.move();
+    return decoded;
 }
 
 function transformObject(state:ParserState, object:Obj) {
@@ -105,18 +112,6 @@ function parseString(state:ParserState):string {
     return decoded;
 }
 
-function parseKey(state:ParserState):string {
-    const start = state.offset;
-    while (![":", "", ","].includes(state.look)) state.advance();
-    if (!state.look) throw new QSONSyntaxException(state, "Unexpected end of QSON input while scanning for object key");
-    if (state.look === ",") throw new QSONSyntaxException(state, "Expected ':' to delimit QSON object key");
-    const end = state.offset;
-    const encoded = state.slice(start, end);
-    const decoded = decodeURIComponent(encoded);
-    state.mark();
-    return decoded;
-}
-
 function parseNull(state:ParserState):null {
     checkPrimitiveSyntax(state, "null");
     return null;
@@ -147,16 +142,16 @@ function checkPrimitiveSyntax(state:ParserState, primitiveName:string):void {
 function parseNumber(state:ParserState):number {
     const start = state.offset;
     state.advance() // first char assumed legit number syntax
-    while (/[0-9]/.test(state.look)) state.advance();
-    if (state.look === ".") {
+    while (/[0-9]/.test(state.peek)) state.advance();
+    if (state.peek === ".") {
         state.advance();
-        while (/[0-9]/.test(state.look)) state.advance();
+        while (/[0-9]/.test(state.peek)) state.advance();
     }
-    if (state.look === "e") {
+    if (state.peek === "e") {
         state.advance();
-        if (!/[0-9\-]/.test(state.look)) throw new QSONSyntaxException(state, "Expected digit (0-9) or dash (-) after 'e'");
+        if (!/[0-9\-]/.test(state.peek)) throw new QSONSyntaxException(state, "Expected digit (0-9) or dash (-) after 'e'");
         state.advance();
-        while (/[0-9]/.test(state.look)) state.advance();
+        while (/[0-9]/.test(state.peek)) state.advance();
     }
     const end = state.offset;
     const numberSyntax = state.slice(start, end);

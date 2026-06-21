@@ -8,6 +8,7 @@ export default function parse(qson:string, options:Options, key:string=""):any {
     const state = new ParserState(qson, options);
     state.enter(key || "(root)");
     let item = _parseItem(state);
+    if (state.peek) throw new QSONSyntaxException(state, "Expected QSON string to end but it contains extra characters");
     if (state.hasTransform) item = state.transform({ key: item }, key, item);
     state.leave();
     return item;

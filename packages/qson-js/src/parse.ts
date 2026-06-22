@@ -74,10 +74,10 @@ function transformObject(state:ParserState, object:Obj) {
 function parseArray(state:ParserState):any[] {
     state.advance(); // pass "@"
     if (state.look !== "(") throw new QSONSyntaxException(state, "Expected '(' after array marker '@' in QSON");
-    state.advance();
+    state.move();
     const array:any[] = [];
     if (state.look as string === ")") {
-        state.advance();
+        state.move();
         return array;
     }
     for (let index=0; true; index++) {
@@ -86,7 +86,7 @@ function parseArray(state:ParserState):any[] {
         const delimiter:string = state.look;
         if (delimiter === ")") break;
         if (delimiter !== ",") throw new QSONSyntaxException(state, "Expected: ',' or ')' after array element in QSON");
-        state.advance(); // pass ","
+        state.move(); // pass ","
     }
     state.advance(); // pass ")"
     if (state.hasTransform) transformArray(state, array);
@@ -141,23 +141,9 @@ function checkPrimitiveSyntax(state:ParserState, primitiveName:string):void {
 }
 
 function parseNumber(state:ParserState):number {
-    const start = state.offset;
-    state.advance() // first char assumed legit number syntax
-    while (/[0-9]/.test(state.peek)) state.advance();
-    if (state.peek === ".") {
-        state.advance();
-        while (/[0-9]/.test(state.peek)) state.advance();
-    }
-    if (state.peek === "e") {
-        state.advance();
-        if (!/[0-9\-]/.test(state.peek)) throw new QSONSyntaxException(state, "Expected digit (0-9) or dash (-) after 'e'");
-        state.advance();
-        while (/[0-9]/.test(state.peek)) state.advance();
-    }
-    const end = state.offset;
-    const numberSyntax = state.slice(start, end);
+    const numberSyntax = state.match(/-?[0-9]+(?:\.[0-9]+)?(e-?[0-9]+)?/y);
     const number = Number(numberSyntax);
-    if (!Number.isFinite(number)) throw new QSONSyntaxException(state, `Invalid number: ${numberSyntax}. Result: ${number}`);
+    if (!Number.isFinite(number) || !numberSyntax) throw new QSONSyntaxException(state, `Invalid number: ${numberSyntax}. Result: ${number}`);
     state.mark();
     return number;
 }

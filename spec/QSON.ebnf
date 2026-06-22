@@ -14,7 +14,7 @@ array           = "@(" [ value { "," value } ] ")" ;
 
 string          = "$" { string-char } "$" ;
 
-string-char     = text-char | ":" | "," ;
+string-char     = text-char | "(" | ")" | ":" | "," ;
 
 number          = [ "-" ] int [ frac ] [ exp ] ;
 
@@ -34,7 +34,7 @@ letter          = "A".."Z" | "a".."z" ;
 
 digit           = "0".."9" ;
 
-symbol-char     = "!" | "(" | ")" | "*" | "-" | "." | ";" | "@" | "_" | "~" ;
+symbol-char     = "!" | "*" | "-" | "." | ";" | "@" | "_" | "~" ;
 
 percent-encoded = "%" hex-digit hex-digit ;
 

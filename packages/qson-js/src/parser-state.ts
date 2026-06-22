@@ -57,4 +57,15 @@ export default class ParserState extends State {
         this._current = this._qson[this._offset] || "";
         return match;
     }
+
+    matchString(str:string) {
+        this._offset += str.length;
+        const match = this._qson.slice(this._baseMarker, this._offset);
+        if (match !== str) {
+            this._offset = this._baseMarker;
+            return false;
+        }
+        this._current = this._qson[this._offset] || "";
+        return true;
+    }
 }

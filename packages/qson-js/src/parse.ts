@@ -128,15 +128,11 @@ function parseFalse(state:ParserState):false {
     return false;
 }
 
-function checkPrimitiveSyntax(state:ParserState, primitiveName:string):void {
-    const start = state.offset;
-    const end = start + primitiveName.length;
-    const check = state.slice(start, end);
-    const after = state.slice(end, end+1);
-    if (check !== primitiveName || !/^[,)]?$/.test(after)) {
+function checkPrimitiveSyntax(state:ParserState, regex:string):void {
+    const match = state.matchString(regex);
+    const next = state.peek;
+    if (!match || (next !== "," && next !== ")" && next !== ""))
         throw new QSONSyntaxException(state, "Expected '(', '@', '$', 'null', 'true', 'false', or number (0-9 or '-')");
-    }
-    state.advance(primitiveName.length);
     state.mark();
 }
 

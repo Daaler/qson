@@ -10,6 +10,10 @@ on:
         branches:
             - master
 
+permissions:
+    contents: read
+    id-token: write
+
 jobs:
     accept:
         runs-on: ubuntu-latest
@@ -43,7 +47,8 @@ jobs:
             - uses: actions/setup-node@v5
               with:
                     node-version: 24
-                    cache: pnpm
+                    registry-url: 'https://registry.npmjs.org'
+                    package-manager-cache: false
 
             - run: pnpm install --frozen-lockfile
             - run: pnpm run release

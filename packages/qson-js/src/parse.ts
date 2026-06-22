@@ -51,9 +51,8 @@ function parseObject(state:ParserState):Obj {
         if (delimiter !== ",") throw new QSONSyntaxException(state, "Expected ',' or ')' after property value in QSON");
         state.move();
     }
-    state.advance(); // pass ")"
     if (state.hasTransform) transformObject(state, object);
-    state.mark();
+    state.move(); // pass ")"
     return object;
 }
 
@@ -88,9 +87,8 @@ function parseArray(state:ParserState):any[] {
         if (delimiter !== ",") throw new QSONSyntaxException(state, "Expected: ',' or ')' after array element in QSON");
         state.move(); // pass ","
     }
-    state.advance(); // pass ")"
     if (state.hasTransform) transformArray(state, array);
-    state.mark();
+    state.move(); // pass ")"
     return array;
 }
 
@@ -102,14 +100,11 @@ function transformArray(state:ParserState, array:any[]) {
 }
 
 function parseString(state:ParserState):string {
-    state.advance(); // pass "$"
-    const start = state.offset;
-    while (state.look !== "$") state.advance();
-    const end = state.offset;
-    state.advance(); // pass "$"
-    const encoded = state.slice(start, end);
+    state.move();
+    const encoded = state.match(/[^\$]*/y);
+    state.look; // triggers error if text ended
     const decoded = decodeURIComponent(encoded);
-    state.mark();
+    state.move();
     return decoded;
 }
 

@@ -27,8 +27,8 @@ for (const arg of process.argv.slice(2)) {
     }
 }
 
-const branches = execSync("git branch -a --contains HEAD").toString();
-if (!branches.includes("* master")) {
+const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+if (branch !== "master") {
     const message = "Commit is not contained in master branch";
     if (noBranchCheck) {
         console.log(message);

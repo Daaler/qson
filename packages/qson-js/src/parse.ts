@@ -24,12 +24,12 @@ function parseItem(state:ParserState, key:Key):any {
 function _parseItem(state:ParserState):any {
     const char = state.look;
     switch (char) {
-    case "(": return parseObject(state);
-    case "@": return parseArray(state);
-    case "$": return parseString(state);
-    case "n": return parseNull(state);
-    case "t": return parseTrue(state);
-    case "f": return parseFalse(state);
+        case "(": return parseObject(state);
+        case "@": return parseArray(state);
+        case "$": return parseString(state);
+        case "n": return parseNull(state);
+        case "t": return parseTrue(state);
+        case "f": return parseFalse(state);
     }
     if (/[0-9\-]/.test(char)) return parseNumber(state);
     throw new QSONSyntaxException(state, "Expected '(', '@', '$', 'null', 'true', 'false', or number (0-9 or '-')");

@@ -10,19 +10,19 @@ export async function prepareTests(directory) {
     for (const [testFile, testDefinition] of Object.entries(tests)) {
         const { type, testCases } = testDefinition;
         switch (type) {
-        case "valid-pair":
-            prepareValidPair(testCases);
-            break;
-        case "invalid-qson":
-            prepareInvadlidQSON(testCases);
-            break;
-        case "invalid-data":
-            prepareInvadlidData(testCases);
-            break;
-        case "custom":
-            prepareCustom(testCases);
-            break;
-        default: throw new Error(`Unknown test type: ${type} in ${testFile}`);
+            case "valid-pair":
+                prepareValidPair(testCases);
+                break;
+            case "invalid-qson":
+                prepareInvadlidQSON(testCases);
+                break;
+            case "invalid-data":
+                prepareInvadlidData(testCases);
+                break;
+            case "custom":
+                prepareCustom(testCases);
+                break;
+            default: throw new Error(`Unknown test type: ${type} in ${testFile}`);
         }
 
     }

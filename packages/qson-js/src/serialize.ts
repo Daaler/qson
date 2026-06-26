@@ -22,19 +22,19 @@ function serializeItem(state:SerializerState, parent:any, key:Key, data:any):str
 
 function _serializeData(state:SerializerState, data:any):string {
     switch (typeof data) {
-    case "number":
-        if (!Number.isFinite(data)) return "null";
-        return `${data}`.replace("+", "");
-    case "boolean":
-        return data ? "true" : "false";
-    case "string":
-        return serializeString(data);
-    case "object":
-        if (data === null) return "null";
-        if (Array.isArray(data)) return serializeArray(state, data);
-        return serializeObject(state, data);
-    case "bigint":
-        throw new QSONTypeException(state, "Do not know how to serialize a BigInt");
+        case "number":
+            if (!Number.isFinite(data)) return "null";
+            return `${data}`.replace("+", "");
+        case "boolean":
+            return data ? "true" : "false";
+        case "string":
+            return serializeString(data);
+        case "object":
+            if (data === null) return "null";
+            if (Array.isArray(data)) return serializeArray(state, data);
+            return serializeObject(state, data);
+        case "bigint":
+            throw new QSONTypeException(state, "Do not know how to serialize a BigInt");
     }
     return "";
 }

@@ -33,18 +33,18 @@ function encodeText(state:EncoderState) {
     state.init();
     while (true) {
         switch (state.charType) {
-        case ASCII:
-            passAllowedAscii(state);
-            break;
-        case ESCAPE:
-            escapeAscii(state);
-            break;
-        case UNICODE:
-            encodeUnicode(state);
-            break;
-        case EOF:
-            const encoded = state.parts.join("");
-            return encoded;
+            case ASCII:
+                passAllowedAscii(state);
+                break;
+            case ESCAPE:
+                escapeAscii(state);
+                break;
+            case UNICODE:
+                encodeUnicode(state);
+                break;
+            case EOF:
+                const encoded = state.parts.join("");
+                return encoded;
         }
     }
 }
@@ -107,9 +107,9 @@ abstract class EncoderState {
 	private _defineCharType() {
 	    this.charType = (
 	        Number.isNaN(this.charCode) ? EOF :
-	            this.charCode >= 128 ? UNICODE :
-	                this.encodingTable[this.charCode].length === 1 ? ASCII :
-	                    ESCAPE
+	        this.charCode >= 128 ? UNICODE :
+	        this.encodingTable[this.charCode].length === 1 ? ASCII :
+	        ESCAPE
 	    );
 	}
 }

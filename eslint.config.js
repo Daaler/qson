@@ -29,7 +29,7 @@ export default defineConfig([
             "quotes": ["error", "double", { "avoidEscape": true }],
             "no-trailing-spaces": "error",
             "eol-last": ["error", "always"],
-            "indent": ["error", 4],
+            "indent": ["error", 4, { flatTernaryExpressions: true, SwitchCase: 1 }],
             "import/extensions": ["error", "always", { ignorePackages: true }],
             "comma-spacing": ["error", { before: false, after: true }],
             "key-spacing": ["error", { beforeColon: false, afterColon: true }],

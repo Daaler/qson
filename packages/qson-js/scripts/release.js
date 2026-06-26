@@ -10,20 +10,20 @@ let dryRun = false;
 
 for (const arg of process.argv.slice(2)) {
     switch (arg) {
-    case "--no-branch-check":
-        noBranchCheck = true;
-        break;
-    case "--no-tag-check":
-        noTagCheck = true;
-        break;
-    case "--no-git-checks":
-        noGitChecks = true;
-        break;
-    case "--dry-run":
-        dryRun = true;
-        break;
-    default:
-        throw new Error(`Unknown cli argument: ${arg}`);
+        case "--no-branch-check":
+            noBranchCheck = true;
+            break;
+        case "--no-tag-check":
+            noTagCheck = true;
+            break;
+        case "--no-git-checks":
+            noGitChecks = true;
+            break;
+        case "--dry-run":
+            dryRun = true;
+            break;
+        default:
+            throw new Error(`Unknown cli argument: ${arg}`);
     }
 }
 

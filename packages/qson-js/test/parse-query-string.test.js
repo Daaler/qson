@@ -8,4 +8,28 @@ describe("Stringify primitives and empty items", () => {
 
         assert.deepStrictEqual(result, {});
     });
+
+    test("'isQSON' predicate default: always true", () => {
+        const result = parseQueryString("a=$a$&b=$b$");
+
+        assert.deepStrictEqual(result, { a: "a", b: "b" });
+    });
+
+    test("'isQSON' predicate: always true", () => {
+        const result = parseQueryString("a=$a$&b=$b$", { isQSON: (key) => true });
+
+        assert.deepStrictEqual(result, { a: "a", b: "b" });
+    });
+
+    test("'isQSON' predicate: always false", () => {
+        const result = parseQueryString("a=a&b=b", { isQSON: (key) => false });
+
+        assert.deepStrictEqual(result, { a: "a", b: "b" });
+    });
+
+    test("'isQSON' predicate", () => {
+        const result = parseQueryString("a=$a$&b=b", { isQSON: (key) => key === "a" });
+
+        assert.deepStrictEqual(result, { a: "a", b: "b" });
+    });
 });

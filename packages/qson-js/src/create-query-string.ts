@@ -1,9 +1,9 @@
 import { encodeQsKey } from "./encode-string.ts";
 import { handleQSONException } from "./qson-exception.ts";
-import { Options } from "./serializer-state.ts";
+import { Options as StateOptions } from "./serializer-state.ts";
 import { SerializerOptions } from "./stringify-qson.ts";
 import serialize from "./serialize.ts";
-import { Obj } from "./types.ts";
+import { Obj, IsQSON } from "./types.ts";
 
 /**
  * Converst a JavaScript object to a query string where values are serialized
@@ -17,16 +17,16 @@ import { Obj } from "./types.ts";
  * @returns Qeury string without leading '?'.
  * @throws {TypeError} If a circular reference or a unserializable value is found.
  */
-export default function createQueryString(query:Obj, options:SerializerOptions={}) {
-    const { canonical=true, replacer, maxDepth } = options;
+export default function createQueryString(query:Obj, options:Options={}) {
+    const { canonical=true, isQSON, replacer, maxDepth } = options;
     try {
-        return _createQueryString(query, { canonical, transform: replacer, maxDepth });
+        return _createQueryString(query, { canonical, isQSON, transform: replacer, maxDepth });
     } catch (exception) {
         handleQSONException(exception, createQueryString);
     }
 }
 
-function _createQueryString(query:Obj, options:Options) {
+function _createQueryString(query:Obj, options:Settings) {
     const { canonical } = options;
     const method = canonical ? createItemsCanonical : createItems;
     const qsItems = method(query, options);
@@ -34,7 +34,7 @@ function _createQueryString(query:Obj, options:Options) {
     return qs;
 }
 
-function createItems(query:Obj, options:Options) {
+function createItems(query:Obj, options:Settings) {
     const items:string[] = [];
     for (const [key, value] of Object.entries(query)) {
         const qsItem = createItem(key, value, options);
@@ -43,7 +43,7 @@ function createItems(query:Obj, options:Options) {
     return items;
 }
 
-function createItemsCanonical(query:Obj, options:Options) {
+function createItemsCanonical(query:Obj, options:Settings) {
     const items:string[] = [];
     const keys = Object.keys(query).sort();
     for (const key of keys) {
@@ -54,9 +54,21 @@ function createItemsCanonical(query:Obj, options:Options) {
     return items;
 }
 
-function createItem(key:string, value:any, options:Options) {
+function createItem(key:string, value:any, options:Settings) {
+    const { isQSON } = options;
     const qsKey = encodeQsKey(key);
-    const qsonValue = serialize(value, options);
-    const qsItem = `${qsKey}=${qsonValue}`;
+    const qsValue = !isQSON || isQSON(key) ? serialize(value, options) : encodeURIComponent(value);
+    const qsItem = `${qsKey}=${qsValue}`;
     return qsItem;
+}
+
+interface Options extends SerializerOptions {
+    /**
+     * Filter which keys are serialized to QSON and which to raw string.
+     */
+    isQSON?:IsQSON;
+}
+
+interface Settings extends StateOptions {
+    isQSON?:IsQSON;
 }

@@ -6,9 +6,9 @@ Example:
 import { createQueryString,parseQueryString } from "@qson/js";
 
 const qs = createQueryString({ search:{ name:"qson",rating:5,public:true },slice:[ 1,10 ] });
-// -> "search=(name:$qson$,public:true,rating:5)&slice=@(1,10)"
-const search = parseQueryString(qs);
-// -> { search:{ name:"qson",public:true,rating:5 },slice:[ 1,10 ]}
+// -> qs = "search=(name:$qson$,public:true,rating:5)&slice=@(1,10)"
+const params = parseQueryString(qs);
+// -> params = { search:{ name:"qson",public:true,rating:5 },slice:[ 1,10 ]}
 ```
 
 ## What is QSON
@@ -38,7 +38,7 @@ import { stringifyQSON,parseQSON,createQueryString,parseQueryString } from "@qso
 
 TypeScript:
 ```ts
-import type { SerializerOptions,ParserOptions } from "@qson/js";
+import type { SerializerOptions,ParserOptions,CreateQueryStringOptions,ParseQueryStringOptions } from "@qson/js";
 ```
 
 CJS:
@@ -71,22 +71,24 @@ Takes in any valid QSON string. Returns corresponding JS data.
 
 `createQueryString(data[,options])`
 - data\<object>
-- options\<SerializerOptions>
-	- replacer\<function> a json api style replacer function
-	- canonical\<boolean> (default: true) sort object keys
-	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
+- options\<CreateQueryStringOptions>
+	- isQSON\<`(key:string) => boolean`> A callback that gets key as an argument and returns boolean. True for QSON fields. False for raw string fields. This applies only to query (root) object fields. (default: all fields are considered QSON)
+	- replacer\<function> A json api style replacer function. It is run for each QSON field in query (root) object but not for the query object itself.
+	- canonical\<boolean> Sort object and query string keys. (default: true)
+	- maxDepth\<number> Maximum nesting depth. Error is thrown if exceeded. (default: 10)
 * returns\<string>
 
-Takes in an object where keys are query string keys and values are any QSON (JSON) compatible data. Returns query string (without leading '?') where values are QSON encoded. Replacer function is run on each entry in data (query object) but not for the query object itself.
+Takes in an object where keys are query string keys and values are any QSON (JSON) compatible data or optionally raw strings. Returns query string (without leading '?') where values are QSON encoded and raw strings are url encoded.
 
 `parseQueryString(text[,options])`
 - text\<string> query string where values are QSON encoded
-- options\<ParserOptions>
-	- reviver\<function> a json api style reviver function
-	- maxDepth\<number> (default: 10) Maximum nesting depth. Error is thrown if exceeded.
+- options\<ParseQueryStringOptions>
+	- isQSON\<`(key:string) => boolean`> a callback that gets key as an argument and returns boolean. True for QSON fields. False for raw string fields. This applies only to query (root level) fields. (default: all fields are considered QSON)
+	- reviver\<function> A json api style reviver function. It is run for each QSON field in query (root) object but not for the query object itself.
+	- maxDepth\<number> Maximum nesting depth. Error is thrown if exceeded. (default: 10)
 * returns\<object>
 
-Takes in a query string (without leading '?') where values are QSON encoded. Returns an object where keys are query string keys and values are JS data. Reviver function is run on each entry in the resulting query object but not for the query object itself.
+Takes in a query string (without leading '?') where values are QSON encoded or url encoded raw strings. Returns an object where keys are query string keys and values are JS data.
 
 ### Types:
 

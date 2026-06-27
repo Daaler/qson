@@ -5,10 +5,12 @@ export default class SerializerState extends State {
     private readonly _canonical:boolean;
     private readonly _references:Reference[];
 
-    get canonical() { return this._canonical; }
+    get canonical() {
+        return this._canonical;
+    }
 
     constructor(options:Options) {
-        const { canonical } = options;
+        const { canonical = true } = options;
         super(options);
         this._canonical = canonical;
         this._references = [];
@@ -25,7 +27,7 @@ export default class SerializerState extends State {
 }
 
 export interface Options extends StateOptions {
-	canonical:boolean;
+    canonical?:boolean;
 }
 
 type Reference = Object|Array<any>;

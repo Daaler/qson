@@ -10,9 +10,9 @@ import { Transform } from "./types.ts";
  * @throws {TypeError} If a circular reference or a unserializable value is found.
  */
 export default function stringifyQSON(value:any, options:SerializerOptions={}):string|undefined {
-    const { canonical=true, replacer, maxDepth } = options;
+    const { replacer } = options;
     try {
-        return serialize(value, { canonical, transform: replacer, maxDepth });
+        return serialize(value, { ...options, transform: replacer });
     } catch (exception) {
         handleQSONException(exception, stringifyQSON);
     }
@@ -22,16 +22,16 @@ export default function stringifyQSON(value:any, options:SerializerOptions={}):s
  * Options for creating Query String and QSON string.
  */
 export interface SerializerOptions {
-	/**
-	 * Sort object keys in canonical order.
-	 */
-	canonical?:boolean;
-	/**
-	 * A function that transforms the results.
-	 */
-	replacer?:Transform|null;
-	/**
-	 * Maximum nesting depth.
-	 */
-	maxDepth?:number;
+    /**
+     * Sort object keys in canonical order.
+     */
+    canonical?:boolean;
+    /**
+     * A function that transforms the results.
+     */
+    replacer?:Transform|null;
+    /**
+     * Maximum nesting depth.
+     */
+    maxDepth?:number;
 }

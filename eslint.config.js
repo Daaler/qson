@@ -26,6 +26,7 @@ export default defineConfig([
             import: importPlugin,
         },
         rules: {
+            "no-tabs": "error",
             "quotes": ["error", "double", { "avoidEscape": true }],
             "no-trailing-spaces": "error",
             "eol-last": ["error", "always"],

@@ -75,43 +75,43 @@ function encodeUnicode(state:EncoderState) {
 }
 
 abstract class EncoderState {
-	abstract readonly encodingTable:string[];
-	readonly string:string;
-	n:number;
-	charCode:number;
-	charType:CharType;
-	readonly parts:string[];
+    abstract readonly encodingTable:string[];
+    readonly string:string;
+    n:number;
+    charCode:number;
+    charType:CharType;
+    readonly parts:string[];
 
-	constructor(string:string) {
-	    this.string = string;
-	    this.n = 0;
-	    this.charCode = string.charCodeAt(0);
-	    this.charType = EOF;
-	    this.parts = [];
-	}
+    constructor(string:string) {
+        this.string = string;
+        this.n = 0;
+        this.charCode = string.charCodeAt(0);
+        this.charType = EOF;
+        this.parts = [];
+    }
 
-	init() {
-	    this._defineCharType();
-	}
+    init() {
+        this._defineCharType();
+    }
 
-	move() {
-	    this.n++;
-	    this.charCode = this.string.charCodeAt(this.n);
-	    this._defineCharType();
-	}
+    move() {
+        this.n++;
+        this.charCode = this.string.charCodeAt(this.n);
+        this._defineCharType();
+    }
 
-	finalize() {
-	    this.charType = EOF;
-	}
+    finalize() {
+        this.charType = EOF;
+    }
 
-	private _defineCharType() {
-	    this.charType = (
-	        Number.isNaN(this.charCode) ? EOF :
-	        this.charCode >= 128 ? UNICODE :
-	        this.encodingTable[this.charCode].length === 1 ? ASCII :
-	        ESCAPE
-	    );
-	}
+    private _defineCharType() {
+        this.charType = (
+            Number.isNaN(this.charCode) ? EOF :
+            this.charCode >= 128 ? UNICODE :
+            this.encodingTable[this.charCode].length === 1 ? ASCII :
+            ESCAPE
+        );
+    }
 }
 
 class StringEncoderState extends EncoderState {

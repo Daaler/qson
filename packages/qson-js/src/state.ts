@@ -16,7 +16,7 @@ export default class State {
     }
 
     constructor(options:Options) {
-        const { transform, maxDepth=10 } = options;
+        const { transform, maxDepth = 10 } = options;
         this._transform = transform || noTransform;
         this._hasTransform = !!transform;
         this._maxDepth = maxDepth;
@@ -42,6 +42,6 @@ function noTransform(key:Key, item:any):any {
 }
 
 export interface Options {
-	transform?:Transform|null;
+    transform?:Transform|null;
     maxDepth?:number;
 }

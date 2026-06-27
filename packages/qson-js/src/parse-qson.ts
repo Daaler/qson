@@ -21,12 +21,12 @@ export default function parseQSON(text:string, options:ParserOptions={}):any {
  * Options for QSON parser.
  */
 export interface ParserOptions {
-	/**
-	 * A function that transforms the results.
-	 */
-	reviver?:Transform;
-	/**
-	 * Maximum nesting depth.
-	 */
-	maxDepth?:number;
+    /**
+     * A function that transforms the results.
+     */
+    reviver?:Transform;
+    /**
+     * Maximum nesting depth.
+     */
+    maxDepth?:number;
 }

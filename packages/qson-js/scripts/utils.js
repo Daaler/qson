@@ -6,15 +6,14 @@ const pkgRoot = pathTool.resolve(import.meta.dirname, "..");
 
 export const paths = {
     pkgRoot,
-    cjsDirectory: pathTool.resolve(pkgRoot, "cjs"),
-    esmDirectory: pathTool.resolve(pkgRoot, "esm"),
-    typesDirectory: pathTool.resolve(pkgRoot, "types"),
+    distDirectory: pathTool.resolve(pkgRoot, "dist"),
+    cjsDirectory: pathTool.resolve(pkgRoot, "dist/cjs"),
+    esmDirectory: pathTool.resolve(pkgRoot, "dist/esm"),
+    typesDirectory: pathTool.resolve(pkgRoot, "dist/types"),
 };
 
 export function clean() {
-    fs.rmSync(paths.cjsDirectory, { recursive: true, force: true });
-    fs.rmSync(paths.esmDirectory, { recursive: true, force: true });
-    fs.rmSync(paths.typesDirectory, { recursive: true, force: true });
+    fs.rmSync(paths.distDirectory, { recursive: true, force: true });
 }
 
 export function build() {

@@ -28,20 +28,16 @@
         "json"
     ],
     "type": "module",
-    "main": "esm/index.js",
-    "types": "types/index.d.ts",
+    "main": "./dist/esm/index.js",
+    "types": "./dist/types/index.d.ts",
     "exports": {
         ".": {
-            "import": "./esm/index.js",
-            "require": "./cjs/index.js",
-            "types": "./types/index.d.ts"
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js",
+            "types": "./dist/types/index.d.ts"
         }
     },
-    "files": [
-        "esm",
-        "cjs",
-        "types"
-    ],
+    "files": ["dist"],
     "scripts": {
         "test": "pnpm run test:types && node --test --import ./test/setup.js \"**/*.test.js\"",
         "test:types": "tsc --noEmit",

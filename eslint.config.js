@@ -12,9 +12,7 @@ export default defineConfig([
             "./package.json",
         ],
         ignores: [
-            "./packages/qson-js/cjs/**",
-            "./packages/qson-js/esm/**",
-            "./packages/qson-js/types/**",
+            "./packages/qson-js/dist/**",
             "./packages/qson-js/node_modules/**",
             "./packages/qson-js/zz-*/**",
         ],

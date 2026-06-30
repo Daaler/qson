@@ -38,12 +38,14 @@ jobs:
               working-directory: packages/qson-js
 
             - name: Create PR for next development version
+              continue-on-error: true
               uses: peter-evans/create-pull-request@v7
               with:
+                path: packages/qson-js
                 commit-message: "qson-js: start next development version ${{ steps.release.outputs.next_version }}"
                 title: "qson-js: start next development version"
                 body: |
                   Automatically created after publishing a release.
-
+                base: master
                 branch: automation/qson-js-next-version
                 delete-branch: true

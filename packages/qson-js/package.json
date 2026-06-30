@@ -37,19 +37,19 @@
             "types": "./dist/types/index.d.ts"
         }
     },
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "test": "pnpm run test:types && node --test --import ./test/setup.js \"**/*.test.js\"",
+        "test": "pnpm run test:types && node --test --import @qson/dev/test-setup \"**/*.test.js\"",
         "test:types": "tsc --noEmit",
-        "test1": "node --test --import ./test/setup.js",
+        "test1": "node --test --import @qson/dev/test-setup",
         "lint": "pnpm exec eslint",
-        "build": "node ./scripts/build.js",
-        "clean": "node ./scripts/clean.js",
-        "release": "node ./scripts/release.js --no-branch-check --no-git-checks"
+        "build": "pnpm exec qson-build",
+        "clean": "pnpm exec qson-clean",
+        "release": "pnpm exec qson-release --no-branch-check --no-git-checks"
     },
     "devDependencies": {
-        "@types/node": "^25.9.2",
-        "tsx": "^4.22.4",
-        "typescript": "^6.0.3"
+        "@qson/dev": "workspace:*"
     }
 }

@@ -31,6 +31,12 @@ export class QSONTypeException extends QSONException {
 export function handleQSONException(exception:any, constructorOpt:any):never {
     if (!(exception instanceof QSONException)) throw exception;
     const error = new exception.ErrorType(exception.message);
-    Error.captureStackTrace(error, constructorOpt);
+    if (Error.captureStackTrace) Error.captureStackTrace(error, constructorOpt);
     throw error;
+}
+
+declare global {
+    interface ErrorConstructor {
+        captureStackTrace(targetObject: object, constructorOpt?: Function): void;
+    }
 }

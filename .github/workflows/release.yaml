@@ -16,6 +16,8 @@ jobs:
 
         steps:
             - uses: actions/checkout@v5
+              with:
+                    fetch-depth: 0
 
             - uses: pnpm/action-setup@v5
 
@@ -29,7 +31,19 @@ jobs:
             - run: pnpm run lint
             - run: pnpm run test
               working-directory: packages/qson-js
-            - run: pnpm run build
+
+            - name: Release and bump version number
+              id: release
+              run: pnpm run release
               working-directory: packages/qson-js
-            - run: pnpm run release
-              working-directory: packages/qson-js
+
+            - name: Create PR for next development version
+              uses: peter-evans/create-pull-request@v7
+              with:
+                commit-message: "qson-js: start next development version ${{ steps.release.outputs.next_version }}"
+                title: "qson-js: start next development version"
+                body: |
+                  Automatically created after publishing a release.
+
+                branch: automation/qson-js-next-version
+                delete-branch: true

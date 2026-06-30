@@ -94,5 +94,8 @@ export function incrementVersion() {
     newPackage.version = inc(oldPackage.version, releaseType);
     const newPackageJSON = JSON.stringify(newPackage, null, 4);
     console.log(`${dryRun ? "Skipping: " : ""} Incrementing version in package.json from ${oldPackage.version} to ${newPackage.version}`);
-    if (!dryRun) fs.writeFileSync(packageJSONPath, newPackageJSON);
+    if (dryRun) return;
+    fs.writeFileSync(packageJSONPath, newPackageJSON);
+    if (!process.env.GITHUB_OUTPUT) return;
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `next_version=${newPackage.version}\n`);
 }

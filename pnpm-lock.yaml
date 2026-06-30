@@ -237,15 +237,9 @@ importers:
 
   packages/qson-js:
     devDependencies:
-      '@types/node':
-        specifier: ^25.9.2
-        version: 25.9.3
-      tsx:
-        specifier: ^4.22.4
-        version: 4.22.4
-      typescript:
-        specifier: ^6.0.3
-        version: 6.0.3
+      '@qson/dev':
+        specifier: workspace:*
+        version: link:../qson-dev
 
 packages:
 

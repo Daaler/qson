@@ -1,9 +1,6 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": ["@qson/dev/tsconfig.types.json", "./tsconfig.json"],
     "compilerOptions": {
         "outDir": "./dist/types",
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "declarationMap": true,
     },
 }

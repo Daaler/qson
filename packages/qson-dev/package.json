@@ -1,0 +1,41 @@
+{
+    "name": "@qson/dev",
+    "version": "0.1.0",
+    "description": "Scripts for QSON project",
+    "author": "Jarno Parviainen",
+    "license": "MIT",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Daaler/qson.git"
+    },
+    "type": "module",
+    "main": "./esm/index.js",
+    "exports": {
+        ".": "./esm/index.js",
+        "./test-setup": "./esm/test-setup.js",
+        "./tsconfig.json": "./tsconfig.json",
+        "./tsconfig.cjs.json": "./tsconfig.cjs.json",
+        "./tsconfig.esm.json": "./tsconfig.esm.json",
+        "./tsconfig.types.json": "./tsconfig.types.json"
+    },
+    "bin": {
+        "qson-build": "./cli/build.js",
+        "qson-clean": "./cli/clean.js",
+        "qson-release": "./cli/release.js"
+    },
+    "files": [
+        "cli",
+        "esm"
+    ],
+    "scripts": {
+        "test": "node --test \"**/*.test.js\"",
+        "test1": "node --test"
+    },
+    "dependencies": {
+        "@types/node": "^25.9.2",
+        "semver": "^7.8.5",
+        "tsx": "^4.22.4",
+        "typescript": "^6.0.3"
+    }
+}

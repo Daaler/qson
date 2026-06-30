@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "declaration": false,
+        "emitDeclarationOnly": false,
+    },
+}

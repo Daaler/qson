@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "esModuleInterop": true,
+
+        "rewriteRelativeImportExtensions": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "removeComments": true,
+    },
+}

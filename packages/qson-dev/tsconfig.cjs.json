@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node10",
+        "module": "CommonJS",
+        "declaration": false,
+        "emitDeclarationOnly": false,
+        "ignoreDeprecations": "6.0",
+    },
+}

@@ -29,5 +29,5 @@ jobs:
             - run: pnpm run lint
             - run: pnpm run test
               working-directory: packages/qson-js
-            - run: pnpm run build
+            - run: pnpm run release --no-tag-check --dry-run
               working-directory: packages/qson-js

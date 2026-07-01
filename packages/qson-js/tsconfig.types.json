@@ -1,5 +1,5 @@
 {
-    "extends": ["@qson/dev/tsconfig.types.json", "./tsconfig.json"],
+    "extends": ["./tsconfig.json", "@qson/dev/tsconfig.types.json"],
     "compilerOptions": {
         "outDir": "./dist/types",
     },

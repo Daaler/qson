@@ -41,7 +41,6 @@ jobs:
               continue-on-error: true
               uses: peter-evans/create-pull-request@v7
               with:
-                path: packages/qson-js
                 commit-message: "qson-js: start next development version ${{ steps.release.outputs.next_version }}"
                 title: "qson-js: start next development version"
                 body: |

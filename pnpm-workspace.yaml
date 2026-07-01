@@ -3,3 +3,5 @@ packages:
   - "packages/qson-dev"
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@qson/js@0.2.2'

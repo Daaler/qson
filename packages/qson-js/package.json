@@ -1,6 +1,6 @@
 {
     "name": "@qson/js",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Query String Object Notation - A JSON-like notation designed for URL query strings",
     "author": "Jarno Parviainen",
     "license": "MIT",

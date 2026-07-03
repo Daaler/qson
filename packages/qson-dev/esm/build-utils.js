@@ -70,7 +70,7 @@ export function release() {
         }
     }
 
-    const expectedRef = `refs/tags/qson-js/v${process.env.npm_package_version}`;
+    const expectedRef = getProjectRef();
     const ref = process.env.GITHUB_REF || "";
     if (ref !== expectedRef) {
         const message = `Reference mismatch. Expected: ${expectedRef}. Got: ${ref}`;
@@ -83,6 +83,15 @@ export function release() {
 
     const publishCommand = `pnpm publish ${dryRun ? "--dry-run" : "--access public"}${noGitChecks ? " --no-git-checks" : ""}`;
     execSync(publishCommand, { stdio: "inherit", cwd: paths.pkgRoot });
+}
+
+function getProjectRef() {
+    if (!process.env.npm_package_name.startsWith("@qson/"))
+        throw new Error(`Invalid project prefix at 'name' in package.json: ${process.env.npm_package_name}`);
+    const name = `qson-${process.env.npm_package_name.slice(6)}`;
+    const version = process.env.npm_package_version;
+    const expectedRef = `refs/tags/${name}/v${version}`;
+    return expectedRef;
 }
 
 export function incrementVersion() {

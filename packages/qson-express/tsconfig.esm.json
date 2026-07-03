@@ -1,0 +1,6 @@
+{
+    "extends": ["./tsconfig.json", "@qson/dev/tsconfig.esm.json"],
+    "compilerOptions": {
+        "outDir": "./dist/esm",
+    },
+}

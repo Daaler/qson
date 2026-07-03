@@ -1,0 +1,55 @@
+{
+    "name": "@qson/express",
+    "version": "0.2.0",
+    "description": "",
+    "author": "Jarno Parviainen",
+    "license": "MIT",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Daaler/qson.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Daaler/qson/issues"
+    },
+    "homepage": "https://github.com/Daaler/qson",
+    "keywords": [],
+    "type": "module",
+    "main": "./dist/esm/index.js",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js",
+            "types": "./dist/types/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "test": "pnpm run test:types && node --test --import @qson/dev/test-setup \"**/*.test.js\"",
+        "test:types": "tsc --noEmit",
+        "test1": "node --test --import @qson/dev/test-setup",
+        "lint": "pnpm exec eslint",
+        "build": "pnpm exec qson-build",
+        "clean": "pnpm exec qson-clean",
+        "release": "pnpm exec qson-release --no-branch-check --no-git-checks"
+    },
+    "dependencies": {
+        "@qson/js": "^0.2.2"
+    },
+    "peerDependencies": {
+        "express": "^5.0.0"
+    },
+    "peerDependenciesMeta": {
+        "express": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@qson/dev": "workspace:*",
+        "@types/express": "^5.0.6",
+        "express": "^5.2.1"
+    }
+}

@@ -1,6 +1,7 @@
 packages:
   - "packages/qson-js"
   - "packages/qson-dev"
+  - "packages/qson-express"
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:

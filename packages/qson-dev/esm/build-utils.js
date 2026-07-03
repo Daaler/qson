@@ -70,7 +70,11 @@ export function release() {
         }
     }
 
-    const expectedRef = getProjectRef();
+    if (!process.env.npm_package_name.startsWith("@qson/"))
+        throw new Error(`Invalid project prefix at 'name' in package.json: ${process.env.npm_package_name}`);
+    const name = `qson-${process.env.npm_package_name.slice(6)}`;
+    const version = process.env.npm_package_version;
+    const expectedRef = `refs/tags/${name}/v${version}`;
     const ref = process.env.GITHUB_REF || "";
     if (ref !== expectedRef) {
         const message = `Reference mismatch. Expected: ${expectedRef}. Got: ${ref}`;
@@ -85,15 +89,6 @@ export function release() {
     execSync(publishCommand, { stdio: "inherit", cwd: paths.pkgRoot });
 }
 
-function getProjectRef() {
-    if (!process.env.npm_package_name.startsWith("@qson/"))
-        throw new Error(`Invalid project prefix at 'name' in package.json: ${process.env.npm_package_name}`);
-    const name = `qson-${process.env.npm_package_name.slice(6)}`;
-    const version = process.env.npm_package_version;
-    const expectedRef = `refs/tags/${name}/v${version}`;
-    return expectedRef;
-}
-
 export function incrementVersion() {
     const packageJSONPath = pathTool.join(paths.pkgRoot, "package.json");
     const packageJSON = fs.readFileSync(packageJSONPath, "utf-8");
@@ -101,7 +96,7 @@ export function incrementVersion() {
     const releaseType = oldPackage.version.startsWith("0.") || !minor ? "patch" : "minor";
     const newPackage = { ...oldPackage };
     newPackage.version = inc(oldPackage.version, releaseType);
-    const newPackageJSON = JSON.stringify(newPackage, null, 4);
+    const newPackageJSON = `${JSON.stringify(newPackage, null, 4)}\n`;
     console.log(`${dryRun ? "Skipping: " : ""} Incrementing version in package.json from ${oldPackage.version} to ${newPackage.version}`);
     if (dryRun) return;
     fs.writeFileSync(packageJSONPath, newPackageJSON);

@@ -35,3 +35,7 @@ jobs:
               working-directory: packages/qson-express
             - run: pnpm run release --no-tag-check --dry-run
               working-directory: packages/qson-express
+            - run: pnpm run test
+              working-directory: packages/qson-axios
+            - run: pnpm run release --no-tag-check --dry-run
+              working-directory: packages/qson-axios

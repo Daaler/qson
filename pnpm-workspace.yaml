@@ -2,6 +2,7 @@ packages:
   - "packages/qson-js"
   - "packages/qson-dev"
   - "packages/qson-express"
+  - "packages/qson-axios"
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:

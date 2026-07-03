@@ -1,0 +1,7 @@
+{
+    "extends": "@qson/dev/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+    },
+    "include": ["./src/**/*"],
+}

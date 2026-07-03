@@ -6,9 +6,7 @@ import importPlugin from "eslint-plugin-import";
 export default defineConfig([
     {
         files: [
-            "./packages/qson-js/**/*.{ts,js,json}",
-            "./packages/qson-dev/**/*.{ts,js,json}",
-            "./packages/qson-express/**/*.{ts,js,json}",
+            "./packages/**/*.{ts,js,json}",
             "./test-corpus/**/*.json",
             "./eslint.config.js",
             "./package.json",

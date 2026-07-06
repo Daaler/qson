@@ -1,0 +1,8 @@
+{
+    "extends": "@qson/dev/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "jsx": "react",
+    },
+    "include": ["./src/**/*"],
+}

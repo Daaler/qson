@@ -1,0 +1,51 @@
+{
+    "name": "@qson/react",
+    "version": "0.2.0",
+    "description": "",
+    "author": "Jarno Parviainen",
+    "license": "MIT",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Daaler/qson.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Daaler/qson/issues"
+    },
+    "homepage": "https://github.com/Daaler/qson",
+    "keywords": [],
+    "type": "module",
+    "main": "./dist/esm/index.js",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "types": "./dist/types/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "test": "pnpm run test:types && node --test --import ./test/test-setup.js \"**/*.test.jsx\"",
+        "test:types": "tsc --noEmit",
+        "test1": "node --test --import ./test/test-setup.js",
+        "lint": "pnpm exec eslint",
+        "build": "pnpm exec qson-build",
+        "clean": "pnpm exec qson-clean",
+        "release": "pnpm exec qson-release --no-branch-check --no-git-checks"
+    },
+    "dependencies": {
+        "@qson/js": "^0.2.3"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-router": "^8.0.0"
+    },
+    "devDependencies": {
+        "@qson/dev": "workspace:*",
+        "@testing-library/react": "^16.3.2",
+        "@types/react": "^19.2.17",
+        "jsdom": "^29.1.1"
+    }
+}

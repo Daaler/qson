@@ -47,16 +47,23 @@ export function clean() {
 }
 
 export function build() {
+    const tsconfigCjsPath = pathTool.resolve(paths.pkgRoot, "tsconfig.cjs.json");
+    const hascjs = fs.existsSync(tsconfigCjsPath);
+
     execSync("pnpm exec tsc -p tsconfig.esm.json", { stdio: "inherit", cwd: paths.pkgRoot });
-    execSync("pnpm exec tsc -p tsconfig.cjs.json", { stdio: "inherit", cwd: paths.pkgRoot });
     execSync("pnpm exec tsc -p tsconfig.types.json", { stdio: "inherit", cwd: paths.pkgRoot });
 
-    // --> add inner package.json to cjs -->
-    const cjsPackge = { type: "commonjs" };
-    const cjsPackgeJSON = JSON.stringify(cjsPackge, null, 2);
-    const cjsPackagePath = pathTool.resolve(paths.cjsDirectory, "package.json");
-    fs.writeFileSync(cjsPackagePath, cjsPackgeJSON, "utf-8");
-    // <-- add inner package.json to cjs <--
+    if (hascjs) {
+        execSync("pnpm exec tsc -p tsconfig.cjs.json", { stdio: "inherit", cwd: paths.pkgRoot });
+        // --> add inner package.json to cjs -->
+        const cjsPackge = { type: "commonjs" };
+        const cjsPackgeJSON = JSON.stringify(cjsPackge, null, 2);
+        const cjsPackagePath = pathTool.resolve(paths.cjsDirectory, "package.json");
+        fs.writeFileSync(cjsPackagePath, cjsPackgeJSON, "utf-8");
+        // <-- add inner package.json to cjs <--
+    } else {
+        console.log("Skipping cjs build because no tsconfig.cjs.json present at project root.");
+    }
 }
 
 export function release() {

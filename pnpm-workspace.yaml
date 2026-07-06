@@ -1,8 +1,9 @@
 packages:
-  - "packages/qson-js"
+  - "packages/qson-axios"
   - "packages/qson-dev"
   - "packages/qson-express"
-  - "packages/qson-axios"
+  - "packages/qson-js"
+  - "packages/qson-react"
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:

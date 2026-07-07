@@ -37,7 +37,7 @@
         "release": "pnpm exec qson-release --no-branch-check --no-git-checks"
     },
     "dependencies": {
-        "@qson/js": "^0.2.3"
+        "@qson/js": "^0.2.4"
     },
     "peerDependencies": {
         "axios": "^1.0.0"

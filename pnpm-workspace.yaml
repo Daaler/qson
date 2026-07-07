@@ -6,4 +6,4 @@ packages:
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@qson/js@0.2.2'
+  - '@qson/js'

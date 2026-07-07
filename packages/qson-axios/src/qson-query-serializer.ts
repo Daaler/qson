@@ -1,8 +1,8 @@
-import { createQueryString, CreateQueryStringOptions } from "@qson/js";
+import { createQueryString, CreateQueryStringOptions, Obj } from "@qson/js";
 
 export default function qsonQuerySerializer(options:CreateQueryStringOptions = {}) {
     const paramSerializer = {
-        serialize(params:Record<string, any>) {
+        serialize(params:Obj) {
             const queryString = createQueryString(params, options);
             return queryString;
         },

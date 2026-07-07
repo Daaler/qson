@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { parseQueryString, ParseQueryStringOptions } from "@qson/js";
+import { Obj, parseQueryString, ParseQueryStringOptions } from "@qson/js";
 
 export default function qsonMiddleware(options:ParseQueryStringOptions = {}) {
 
@@ -25,7 +25,7 @@ export default function qsonMiddleware(options:ParseQueryStringOptions = {}) {
 declare global {
     namespace Express {
         interface Request {
-            qson?: { [key:string]:any };
+            qson?: Obj;
         }
     }
 }

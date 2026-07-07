@@ -1,4 +1,4 @@
-import { parseQueryString, ParseQueryStringOptions } from "@qson/js";
+import { Obj, parseQueryString, ParseQueryStringOptions } from "@qson/js";
 
 export default function qsonQueryParser(options:ParseQueryStringOptions = {}) {
 
@@ -9,5 +9,3 @@ export default function qsonQueryParser(options:ParseQueryStringOptions = {}) {
 
     return queryParser;
 }
-
-type Obj = { [key:string]:any };

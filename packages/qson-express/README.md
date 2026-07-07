@@ -1,6 +1,11 @@
-# QSON query string parser and middleware for Express.js
+# QSON query string parser and middleware for for [Express.js](https://www.npmjs.com/package/express)
 
 See [@qson/js](https://www.npmjs.com/package/@qson/js) for what QSON is.
+
+Other packages in the QSON ecosystem:
+
+- [@qson/axios](https://www.npmjs.com/package/@qson/axios) - axios integration
+- [@qson/react](https://www.npmjs.com/package/@qson/react) - React utilities
 
 Use either of the following that fits your project.
 
@@ -24,7 +29,7 @@ import { qsonMiddleware } from "@qson/express";
 
 const app = express();
 // Parse query string and make the result available in request.qson (request.query is untouched)
-// Keys "_id" is parsed as raw string and others are parsed as QSON
+// Key "_id" is parsed as raw string and others are parsed as QSON
 app.use(qsonMiddleware({ isQSON: (key) => key !== "_id" }));
 ```
 

@@ -2,6 +2,11 @@
 
 See [@qson/js](https://www.npmjs.com/package/@qson/js) for what QSON is.
 
+Other packages in the QSON ecosystem:
+
+- [@qson/express](https://www.npmjs.com/package/@qson/express) - Express.js integration
+- [@qson/react](https://www.npmjs.com/package/@qson/react) - React utilities
+
 Example:
 
 ```js

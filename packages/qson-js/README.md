@@ -1,6 +1,14 @@
 # QSON - Query String Object Notation
 
-Example:
+QSON parser and serializer library for JavaScript and TypeScript.
+
+Other packages in the QSON ecosystem:
+
+- [@qson/axios](https://www.npmjs.com/package/@qson/axios) - axios integration
+- [@qson/express](https://www.npmjs.com/package/@qson/express) - Express.js integration
+- [@qson/react](https://www.npmjs.com/package/@qson/react) - React utilities
+
+## Example
 
 ```js
 import { createQueryString,parseQueryString } from "@qson/js";
